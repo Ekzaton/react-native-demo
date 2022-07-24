@@ -1,13 +1,19 @@
 import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import AddTodo from './src/AddTodo/AddTodo';
 import Navbar from './src/Navbar/Navbar';
 import Todo from './src/Todo/Todo';
-import { TodoType } from "./src/types";
+import { TodoType } from './src/types';
 
 export default function App() {
-  const [todos, setTodos] = useState<TodoType[]>([]);
+  const [todos, setTodos] = useState<TodoType[]>([
+    { id: '1', title: 'test1' },
+    { id: '2', title: 'test2' },
+    { id: '3', title: 'test3' },
+    { id: '4', title: 'test4' },
+    { id: '5', title: 'test5' }
+  ]);
 
   const addTodoHandler = (title: string) => {
     setTodos((prev) => [...prev, {
@@ -21,9 +27,7 @@ export default function App() {
       <Navbar title='Todo App' />
       <View style={styles.container}>
         <AddTodo onSubmit={addTodoHandler} />
-        <ScrollView>
-          {todos.map((todo) => <Todo key={todo.id} todo={todo} />)}
-        </ScrollView>
+        <FlatList keyExtractor={(item) => item.id} data={todos} renderItem={({ item }) => <Todo todo={item} />}/>
       </View>
     </View>
   );
