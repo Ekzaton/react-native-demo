@@ -1,6 +1,8 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-import {TodoPageProps} from './TodoPage.props';
+import { Theme } from '../../constants/theme';
+
+import { TodoPageProps } from './TodoPage.props';
 
 export default function TodoPage(props: TodoPageProps) {
   const { todo, goBack  } = props;
@@ -9,11 +11,11 @@ export default function TodoPage(props: TodoPageProps) {
       <View>
         <Text>{todo?.title}</Text>
         <View style={styles.buttons}>
-          <View style={styles.button} >
-            <Button title='Назад' color='#757575' onPress={goBack}/>
+          <View style={styles.button}>
+            <Button title='Назад' color={Theme.GREY_COLOR} onPress={goBack} />
           </View>
-          <View style={styles.button} >
-            <Button title='Удалить' color='#E53935' onPress={() => console.log('To Remove')}/>
+          <View style={styles.button}>
+            <Button title='Удалить' color={Theme.DANGER_COLOR} onPress={() => console.log('To Remove')} />
           </View>
         </View>
       </View>

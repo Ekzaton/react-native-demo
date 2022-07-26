@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Theme } from '../../constants/theme';
+
 import { NavbarProps } from './Navbar.props';
 
 export default function Navbar(props: NavbarProps) {
@@ -18,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 70,
     paddingBottom: 10,
-    backgroundColor: '#3949AB',
+    backgroundColor: Theme.MAIN_COLOR,
   },
   text: {
     fontSize: 20,

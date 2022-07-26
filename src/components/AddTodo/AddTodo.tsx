@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
 
+import { Theme } from '../../constants/theme';
+
 import { AddTodoProps } from './AddTodo.props';
 
 export default function AddTodo(props: AddTodoProps) {
@@ -44,6 +46,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderStyle: 'solid',
     borderBottomWidth: 2,
-    borderBottomColor: '#3949AB',
+    borderBottomColor: Theme.MAIN_COLOR,
   }
 });
