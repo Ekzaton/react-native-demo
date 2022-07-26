@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
 
-import { AddTodoProps } from "./AddTodo.props";
+import { AddTodoProps } from './AddTodo.props';
 
 export default function AddTodo(props: AddTodoProps) {
   const { onSubmit } =  props;

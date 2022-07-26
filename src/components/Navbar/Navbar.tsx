@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import { NavbarProps } from "./Navbar.props";
+import { NavbarProps } from './Navbar.props';
 
 export default function Navbar(props: NavbarProps) {
   const { title } = props;

@@ -3,12 +3,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { TodoProps } from './Todo.props';
 
 export default function Todo(props: TodoProps) {
-  const { todo, onRemove } = props;
+  const { todo, onOpen, onRemove } = props;
 
   return (
       <TouchableOpacity
           activeOpacity={0.5}
-          onPress={() => console.log('Pressed', todo.id)}
+          onPress={() => onOpen(todo.id)}
           onLongPress={() => onRemove(todo.id)}
       >
         <View style={styles.container}>

@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import AddTodo from './src/AddTodo/AddTodo';
-import Navbar from './src/Navbar/Navbar';
-import Todo from './src/Todo/Todo';
-import { TodoType } from './src/types';
+import Navbar from './src/components/Navbar/Navbar';
+import MainPage from './src/pages/MainPage/MainPage';
+import TodoPage from './src/pages/TodoPage/TodoPage';
+import { TodoType } from './src/types/common';
 
 export default function App() {
   const [todos, setTodos] = useState<TodoType[]>([
@@ -14,6 +14,7 @@ export default function App() {
     { id: '4', title: 'test4' },
     { id: '5', title: 'test5' }
   ]);
+  const [todoID, setTodoID] = useState<string | null>(null);
 
   const addTodoHandler = (title: string) => {
     setTodos((prev) => [...prev, {
@@ -26,16 +27,18 @@ export default function App() {
     setTodos((prev) => prev.filter((todo) => todo.id !== id))
   }
 
+  let content = <MainPage todos={todos} addTodo={addTodoHandler} openTodo={setTodoID} removeTodo={removeTodoHandler} />
+
+  if (todoID) {
+    const selectedTodo = todos.find((todo) => todo.id === todoID);
+    content = <TodoPage todo={selectedTodo} goBack={() => setTodoID(null)}/>
+  }
+
   return (
     <View>
       <Navbar title='Todo App' />
       <View style={styles.container}>
-        <AddTodo onSubmit={addTodoHandler} />
-        <FlatList
-            keyExtractor={(item) => item.id}
-            data={todos}
-            renderItem={({ item }) => <Todo todo={item} onRemove={removeTodoHandler}/>}
-        />
+        {content}
       </View>
     </View>
   );
