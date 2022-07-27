@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 
 import Navbar from './src/components/Navbar/Navbar';
 import MainPage from './src/pages/MainPage/MainPage';
@@ -24,14 +24,33 @@ export default function App() {
   }
 
   const removeTodoHandler = (id: string) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id))
+    const todo = todos.find((todo) => todo.id === id);
+
+    Alert.alert(
+        'Удаление',
+        `Вы уверены что хотите удалить "${todo!.title}"?`,
+        [
+          {
+            text: 'Отмена',
+            style: "cancel",
+          },
+          {
+            text: 'Удалить',
+            style: 'destructive',
+            onPress: () => {
+              setTodoID(null);
+              setTodos((prev) => prev.filter((todo) => todo.id !== id));
+            }
+          }
+        ]
+    );
   }
 
   let content = <MainPage todos={todos} addTodo={addTodoHandler} openTodo={setTodoID} removeTodo={removeTodoHandler} />
 
   if (todoID) {
     const selectedTodo = todos.find((todo) => todo.id === todoID);
-    content = <TodoPage todo={selectedTodo} goBack={() => setTodoID(null)}/>
+    content = <TodoPage todo={selectedTodo} goBack={() => setTodoID(null)} onRemove={removeTodoHandler}/>
   }
 
   return (

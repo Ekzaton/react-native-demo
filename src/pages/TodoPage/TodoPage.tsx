@@ -6,12 +6,12 @@ import { Theme } from '../../constants/theme';
 import { TodoPageProps } from './TodoPage.props';
 
 export default function TodoPage(props: TodoPageProps) {
-  const { todo, goBack  } = props;
+  const { todo, goBack, onRemove  } = props;
 
   return (
       <View>
         <Card style={styles.card}>
-          <Text style={styles.title}>{todo?.title}</Text>
+          <Text style={styles.title}>{todo!.title}</Text>
           <Button title='Редактировать' />
         </Card>
 
@@ -20,7 +20,7 @@ export default function TodoPage(props: TodoPageProps) {
             <Button title='Назад' color={Theme.GREY_COLOR} onPress={goBack} />
           </View>
           <View style={styles.button}>
-            <Button title='Удалить' color={Theme.DANGER_COLOR} onPress={() => console.log('To Remove')} />
+            <Button title='Удалить' color={Theme.DANGER_COLOR} onPress={() => onRemove(todo!.id)} />
           </View>
         </View>
       </View>
