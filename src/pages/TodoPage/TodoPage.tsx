@@ -1,5 +1,6 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
 
+import Card from '../../components/ui/Card/Card';
 import { Theme } from '../../constants/theme';
 
 import { TodoPageProps } from './TodoPage.props';
@@ -9,7 +10,11 @@ export default function TodoPage(props: TodoPageProps) {
 
   return (
       <View>
-        <Text>{todo?.title}</Text>
+        <Card style={styles.card}>
+          <Text style={styles.title}>{todo?.title}</Text>
+          <Button title='Редактировать' />
+        </Card>
+
         <View style={styles.buttons}>
           <View style={styles.button}>
             <Button title='Назад' color={Theme.GREY_COLOR} onPress={goBack} />
@@ -29,5 +34,12 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '40%'
+  },
+  card: {
+    marginBottom: 20,
+    padding: 15,
+  },
+  title: {
+    fontSize: 20
   }
 });

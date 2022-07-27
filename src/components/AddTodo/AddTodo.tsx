@@ -29,7 +29,7 @@ export default function AddTodo(props: AddTodoProps) {
             autoCapitalize='none'
             autoCorrect={false}
         />
-        <Button title='Добавить' onPress={pressHandler}/>
+        <Button title='Добавить' onPress={pressHandler} />
       </View>
   )
 }
