@@ -14,7 +14,7 @@ export default function App() {
     { id: '4', title: 'test4' },
     { id: '5', title: 'test5' }
   ]);
-  const [todoID, setTodoID] = useState<string | null>('1');
+  const [todoID, setTodoID] = useState<string | null>(null);
 
   const addTodoHandler = (title: string) => {
     setTodos((prev) => [...prev, {
