@@ -1,18 +1,34 @@
+import { useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
+import EditModal from '../../components/EditModal/EditModal';
 import Card from '../../components/ui/Card/Card';
 import { Theme } from '../../constants/theme';
 
 import { TodoPageProps } from './TodoPage.props';
 
 export default function TodoPage(props: TodoPageProps) {
-  const { todo, goBack, onRemove  } = props;
+  const { todo, goBack, onRemove, onSave  } = props;
+
+  const [modal, setModal] = useState(false);
+
+  const saveHandler = (title: string) => {
+    onSave(todo!.id, title);
+    setModal(false);
+  }
 
   return (
       <View>
+        <EditModal
+            value={todo!.title}
+            visible={modal}
+            onCancel={() => setModal(false)}
+            onSave={saveHandler}
+        />
+
         <Card style={styles.card}>
           <Text style={styles.title}>{todo!.title}</Text>
-          <Button title='Редактировать' />
+          <Button title='Редактировать' onPress={() => setModal(true)} />
         </Card>
 
         <View style={styles.buttons}>
