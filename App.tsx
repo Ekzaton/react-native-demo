@@ -1,3 +1,4 @@
+import Font from 'expo-font';
 import { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
@@ -5,6 +6,13 @@ import Navbar from './src/components/Navbar/Navbar';
 import MainPage from './src/pages/MainPage/MainPage';
 import TodoPage from './src/pages/TodoPage/TodoPage';
 import { TodoType } from './src/types/common';
+
+async function loadApp() {
+  await Font.loadAsync({
+    'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
+    'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf')
+  })
+}
 
 export default function App() {
   const [todos, setTodos] = useState<TodoType[]>([

@@ -16,7 +16,7 @@ export default function MainPage(props: MainPageProps) {
 
   if (!todos.length) {
     content = <View style={styles.imageWarp}>
-      <Image style={styles.image} source={require('../../assets/no-items.png')} />
+      <Image style={styles.image} source={require('../../../assets/no-items.png')} />
     </View>
   }
 
