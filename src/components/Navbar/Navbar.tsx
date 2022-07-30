@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 
 import { Theme } from '../../constants/theme';
 
@@ -10,7 +10,15 @@ export default function Navbar(props: NavbarProps) {
   const { title } = props;
 
   return (
-      <View style={styles.navbar}>
+      <View style={ {...styles.navbar, ...Platform.select({
+          android: {
+            backgroundColor: Theme.MAIN_COLOR,
+          },
+          ios: {
+            borderBottomColor: Theme.MAIN_COLOR,
+            borderBottomWidth: 1,
+          }
+        })}}>
         <TextRobotoBold style={styles.text}>{title}</TextRobotoBold>
       </View>
   )
@@ -22,10 +30,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 70,
     paddingBottom: 10,
-    backgroundColor: Theme.MAIN_COLOR,
   },
   text: {
-    fontSize: 20,
-    color: 'white',
+    fontSize:  20,
+    color: Platform.OS === 'ios' ? Theme.MAIN_COLOR : '#fff',
   }
 });

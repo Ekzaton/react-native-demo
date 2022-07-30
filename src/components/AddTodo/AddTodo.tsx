@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, Keyboard, StyleSheet, TextInput, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { Theme } from '../../constants/theme';
@@ -15,6 +15,7 @@ export default function AddTodo(props: AddTodoProps) {
     if (value.trim()) {
       onSubmit(value);
       setValue('');
+      Keyboard.dismiss();
     } else {
       Alert.alert('Название не может быть пустым!')
     }

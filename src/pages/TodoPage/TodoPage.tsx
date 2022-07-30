@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 import EditModal from '../../components/EditModal/EditModal';
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   button: {
-    width: '40%'
+    width: Dimensions.get('window').width > 800 ? 300 : 150
   },
   card: {
     marginBottom: 20,

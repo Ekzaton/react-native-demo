@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
 
 import { Theme } from '../../../constants/theme';
 
@@ -9,12 +9,14 @@ import { ButtonProps } from './Button.props';
 export default function Button(props: ButtonProps) {
   const { children, onPress, color = Theme.MAIN_COLOR } = props;
 
+  const content = <View style={ {...styles.button, backgroundColor: color } }>
+    <TextRobotoBold style={styles.text}>{children}</TextRobotoBold>
+  </View>
+
   return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
-        <View style={ {...styles.button, backgroundColor: color } }>
-          <TextRobotoBold style={styles.text}>{children}</TextRobotoBold>
-        </View>
-      </TouchableOpacity>
+      Platform.OS === 'android'
+          ? <TouchableNativeFeedback onPress={onPress}>{content}</TouchableNativeFeedback>
+          : <TouchableOpacity onPress={onPress} activeOpacity={0.7}>{content}</TouchableOpacity>
   )
 }
 
