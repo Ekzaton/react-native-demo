@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 
 import EditModal from '../../components/EditModal/EditModal';
 import Card from '../../components/ui/Card/Card';
+import TextRobotoBold from '../../components/ui/RobotoTextBold/TextRobotoBold';
 import { Theme } from '../../constants/theme';
 
 import { TodoPageProps } from './TodoPage.props';
@@ -27,7 +28,7 @@ export default function TodoPage(props: TodoPageProps) {
         />
 
         <Card style={styles.card}>
-          <Text style={styles.title}>{todo!.title}</Text>
+          <TextRobotoBold style={styles.title}>{todo!.title}</TextRobotoBold>
           <Button title='Редактировать' onPress={() => setModal(true)} />
         </Card>
 

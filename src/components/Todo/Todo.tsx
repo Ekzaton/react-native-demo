@@ -1,4 +1,6 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
+import TextRoboto from '../ui/RobotoText/TextRoboto';
 
 import { TodoProps } from './Todo.props';
 
@@ -12,7 +14,7 @@ export default function Todo(props: TodoProps) {
           onLongPress={() => onRemove(todo.id)}
       >
         <View style={styles.container}>
-          <Text>{todo.title}</Text>
+          <TextRoboto>{todo.title}</TextRoboto>
         </View>
       </TouchableOpacity>
   )

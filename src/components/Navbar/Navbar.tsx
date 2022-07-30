@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { Theme } from '../../constants/theme';
+
+import TextRobotoBold from '../ui/RobotoTextBold/TextRobotoBold';
 
 import { NavbarProps } from './Navbar.props';
 
@@ -9,7 +11,7 @@ export default function Navbar(props: NavbarProps) {
 
   return (
       <View style={styles.navbar}>
-        <Text style={styles.text}>{title}</Text>
+        <TextRobotoBold style={styles.text}>{title}</TextRobotoBold>
       </View>
   )
 }
