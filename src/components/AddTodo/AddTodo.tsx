@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, TextInput, View } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 import { Theme } from '../../constants/theme';
 
@@ -29,7 +30,7 @@ export default function AddTodo(props: AddTodoProps) {
             autoCapitalize='none'
             autoCorrect={false}
         />
-        <Button title='Добавить' onPress={pressHandler} />
+        <AntDesign.Button name='pluscircleo' onPress={pressHandler}>Добавить</AntDesign.Button>
       </View>
   )
 }
