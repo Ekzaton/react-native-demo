@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 import EditModal from '../../components/EditModal/EditModal';
+import Button from '../../components/ui/Button/Button';
 import Card from '../../components/ui/Card/Card';
 import TextRobotoBold from '../../components/ui/RobotoTextBold/TextRobotoBold';
 import { Theme } from '../../constants/theme';
@@ -29,15 +31,21 @@ export default function TodoPage(props: TodoPageProps) {
 
         <Card style={styles.card}>
           <TextRobotoBold style={styles.title}>{todo!.title}</TextRobotoBold>
-          <Button title='Редактировать' onPress={() => setModal(true)} />
+          <Button onPress={() => setModal(true)}>
+            <FontAwesome name='edit' size={20} />
+          </Button>
         </Card>
 
         <View style={styles.buttons}>
           <View style={styles.button}>
-            <Button title='Назад' color={Theme.GREY_COLOR} onPress={goBack} />
+            <Button color={Theme.GREY_COLOR} onPress={goBack}>
+              <AntDesign name='back' size={20} />
+            </Button>
           </View>
           <View style={styles.button}>
-            <Button title='Удалить' color={Theme.DANGER_COLOR} onPress={() => onRemove(todo!.id)} />
+            <Button color={Theme.DANGER_COLOR} onPress={() => onRemove(todo!.id)}>
+              <FontAwesome name='remove' size={20} />
+            </Button>
           </View>
         </View>
       </View>

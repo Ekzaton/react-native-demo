@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Alert, Button, Modal, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, Modal, StyleSheet, TextInput, View } from 'react-native';
 
 import { Theme } from '../../constants/theme';
+
+import Button from '../ui/Button/Button';
 
 import { EditModalProps } from './EditModal.props';
 
@@ -41,8 +43,8 @@ export default function EditModal(props: EditModalProps) {
               autoCorrect={false}
           />
           <View style={styles.buttons}>
-            <Button title='Отменить' color={Theme.DANGER_COLOR} onPress={closeHandler} />
-            <Button title='Сохранить' onPress={saveHandler}/>
+            <Button onPress={closeHandler} color={Theme.DANGER_COLOR}>Отменить</Button>
+            <Button onPress={saveHandler}>Сохранить</Button>
           </View>
         </View>
       </Modal>
