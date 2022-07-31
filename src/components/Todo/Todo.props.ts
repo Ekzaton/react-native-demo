@@ -1,7 +1,7 @@
-import { TodoType } from '../../types/common';
+import { Todo } from '../../types/common';
 
 export type TodoProps = {
-  todo: TodoType;
+  todo: Todo;
   onOpen: (id: string) => void;
   onRemove: (id: string) => void;
 }

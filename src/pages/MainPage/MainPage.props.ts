@@ -1,7 +1,7 @@
-import { TodoType } from '../../types/common';
+import { Todo } from '../../types/common';
 
 export type MainPageProps = {
-  todos: TodoType[];
+  todos: Todo[];
   addTodo: (title: string) => void;
   openTodo: (id: string) => void;
   removeTodo: (id: string) => void;

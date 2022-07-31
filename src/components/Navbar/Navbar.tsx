@@ -1,4 +1,4 @@
-import {Platform, StyleSheet, View} from 'react-native';
+import { ColorValue, Platform, StyleSheet, View } from 'react-native';
 
 import { Theme } from '../../constants/theme';
 
@@ -12,10 +12,10 @@ export default function Navbar(props: NavbarProps) {
   return (
       <View style={ {...styles.navbar, ...Platform.select({
           android: {
-            backgroundColor: Theme.MAIN_COLOR,
+            backgroundColor: Theme.MAIN_COLOR as ColorValue,
           },
           ios: {
-            borderBottomColor: Theme.MAIN_COLOR,
+            borderBottomColor: Theme.MAIN_COLOR as ColorValue,
             borderBottomWidth: 1,
           }
         })}}>
@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize:  20,
-    color: Platform.OS === 'ios' ? Theme.MAIN_COLOR : '#fff',
+    color: (Platform.OS === 'ios' ? Theme.MAIN_COLOR : '#fff') as ColorValue,
   }
 });

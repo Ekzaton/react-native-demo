@@ -9,10 +9,11 @@ export default function MainPage(props: MainPageProps) {
   const { addTodo, openTodo, removeTodo, todos } = props;
 
   let content = <FlatList
-      keyExtractor={(item) => item.id}
-      data={todos}
-      renderItem={({ item }) => <Todo todo={item} onOpen={openTodo} onRemove={removeTodo} />}
-  />
+        contentContainerStyle={styles.listWrap}
+        keyExtractor={(item) => item.id}
+        data={todos}
+        renderItem={({ item }) => <Todo todo={item} onOpen={openTodo} onRemove={removeTodo} />}
+    />
 
   if (!todos.length) {
     content = <View style={styles.imageWarp}>
@@ -39,5 +40,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'contain'
+  },
+  listWrap: {
+    width: '100%',
   }
 });

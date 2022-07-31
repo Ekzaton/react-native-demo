@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Modal, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, ColorValue, Modal, StyleSheet, TextInput, View } from 'react-native';
 
 import { Theme } from '../../constants/theme';
 
@@ -43,7 +43,7 @@ export default function EditModal(props: EditModalProps) {
               autoCorrect={false}
           />
           <View style={styles.buttons}>
-            <Button onPress={closeHandler} color={Theme.DANGER_COLOR}>Отменить</Button>
+            <Button onPress={closeHandler} color={Theme.DANGER_COLOR as ColorValue}>Отменить</Button>
             <Button onPress={saveHandler}>Сохранить</Button>
           </View>
         </View>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   input: {
     width: '80%',
     padding: 10,
-    borderBottomColor: Theme.MAIN_COLOR,
+    borderBottomColor: Theme.MAIN_COLOR as ColorValue,
     borderBottomWidth: 2,
   },
   buttons: {

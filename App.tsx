@@ -4,13 +4,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
 import Navbar from './src/components/Navbar/Navbar';
+import { Theme } from './src/constants/theme';
 import MainPage from './src/pages/MainPage/MainPage';
 import TodoPage from './src/pages/TodoPage/TodoPage';
-import { TodoType } from './src/types/common';
+import { Todo } from './src/types/common';
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const [todos, setTodos] = useState<TodoType[]>([
+  const [todos, setTodos] = useState<Todo[]>([
     { id: '1', title: 'test1' },
     { id: '2', title: 'test2' },
     { id: '3', title: 'test3' },
@@ -104,7 +105,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
+    paddingHorizontal: Theme.PADDING_HORIZONTAL,
     paddingVertical: 20,
   }
 });

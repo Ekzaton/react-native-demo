@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { ColorValue, Dimensions, StyleSheet, View } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 import EditModal from '../../components/EditModal/EditModal';
@@ -38,12 +38,12 @@ export default function TodoPage(props: TodoPageProps) {
 
         <View style={styles.buttons}>
           <View style={styles.button}>
-            <Button color={Theme.GREY_COLOR} onPress={goBack}>
+            <Button onPress={goBack} color={Theme.GREY_COLOR as ColorValue}>
               <AntDesign name='back' size={20} />
             </Button>
           </View>
           <View style={styles.button}>
-            <Button color={Theme.DANGER_COLOR} onPress={() => onRemove(todo!.id)}>
+            <Button onPress={() => onRemove(todo!.id)} color={Theme.DANGER_COLOR as ColorValue}>
               <FontAwesome name='remove' size={20} />
             </Button>
           </View>
