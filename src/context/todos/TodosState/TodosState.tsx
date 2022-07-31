@@ -58,8 +58,12 @@ export default function TodosState(props: TodosStateProps) {
           {
             text: 'Удалить',
             style: 'destructive',
-            onPress: () => {
+            onPress: async () => {
               changePage(null);
+              await fetch(`${BASE_URL}/todos/${id}.json`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+              })
               dispatch({ type: REMOVE_TODO, id });
             }
           }
