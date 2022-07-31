@@ -16,7 +16,7 @@ export default function MainLayout(props: MainLayoutProps) {
   const { todoID } = useContext<Pages>(PagesContext);
 
   return (
-      <View onLayout={onLayout}>
+      <View style={styles.wrapper} onLayout={onLayout}>
         <Navbar title='Todo App' />
         <View style={styles.container}>
           {todoID ? <TodoPage /> : <MainPage />}
@@ -27,7 +27,11 @@ export default function MainLayout(props: MainLayoutProps) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingHorizontal: Theme.PADDING_HORIZONTAL,
     paddingVertical: 20,
+  },
+  wrapper: {
+    flex: 1
   }
 });

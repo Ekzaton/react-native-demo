@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { FlatList, Image, StyleSheet, View } from 'react-native';
 
 import AddTodo from '../../components/AddTodo/AddTodo';
@@ -6,10 +6,17 @@ import Todo from '../../components/Todo/Todo';
 import { PagesContext } from '../../context/pages/pagesContext';
 import { TodosContext } from '../../context/todos/todosContext';
 import { Pages, Todos } from '../../types/context';
+import Loader from "../../components/ui/Loader/Loader";
 
 export default function MainPage() {
   const { changePage } = useContext<Pages>(PagesContext);
-  const { todos, addTodo, removeTodo } = useContext<Todos>(TodosContext);
+  const { todos, loading, error, addTodo, fetchTodos, removeTodo } = useContext<Todos>(TodosContext);
+
+  const loadTodos = useCallback(async () => fetchTodos(), [fetchTodos])
+
+  useEffect(() => {
+    loadTodos();
+  }, [])
 
   let content = <FlatList
         contentContainerStyle={styles.listWrap}
@@ -23,6 +30,8 @@ export default function MainPage() {
       <Image style={styles.image} source={require('../../../assets/no-items.png')} />
     </View>
   }
+
+  if (loading) return <Loader />
 
   return (
       <View>

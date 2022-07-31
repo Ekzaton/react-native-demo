@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 import {
   ADD_TODO,
   CLEAR_ERROR,
+  FETCH_TODOS,
   HIDE_LOADER,
   REMOVE_TODO,
   SHOW_ERROR,
@@ -41,7 +42,6 @@ export default function TodosState(props: TodosStateProps) {
       body: JSON.stringify({ title })
     })
     const data = await response.json();
-    console.log(data);
     dispatch({ type: ADD_TODO, id: data.name, title });
   };
 
@@ -69,6 +69,18 @@ export default function TodosState(props: TodosStateProps) {
 
   const updateTodo = (id: string, title: string) => dispatch({ type: UPDATE_TODO, id, title });
 
+  const fetchTodos = async () => {
+    showLoader();
+    const response = await fetch(`${BASE_URL}/todos.json`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    const data = await response.json();
+    const todos = Object.keys(data).map((key) => ({ ...data[key], id: key }))
+    dispatch({ type: FETCH_TODOS, todos });
+    hideLoader();
+  }
+
   const showLoader = () => dispatch({ type: SHOW_LOADER });
 
   const hideLoader = () => dispatch({ type: HIDE_LOADER })
@@ -79,7 +91,10 @@ export default function TodosState(props: TodosStateProps) {
 
   const value = {
     todos: state.todos,
+    loading: state.loading,
+    error: state.error,
     addTodo,
+    fetchTodos,
     removeTodo,
     updateTodo,
   };
