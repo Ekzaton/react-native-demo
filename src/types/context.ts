@@ -9,5 +9,5 @@ export type Todos = {
 
 export type Pages = {
   todoID: string | null;
-  changePage: (id: string) => void;
+  changePage: (id: string | null) => void;
 }

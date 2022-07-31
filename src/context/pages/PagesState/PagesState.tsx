@@ -14,7 +14,7 @@ export default function PagesState(props: PagesStateProps) {
 
   const [state, dispatch] = useReducer(pagesReducer, initialState);
 
-  const changePage = (id: string) => dispatch({ type: CHANGE_PAGE, payload: id });
+  const changePage = (id: string | null) => dispatch({ type: CHANGE_PAGE, payload: id });
 
   const value = {
     todoID: state,

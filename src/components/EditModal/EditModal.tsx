@@ -12,7 +12,7 @@ export default function EditModal(props: EditModalProps) {
 
   const [title, setTitle] = useState(value);
 
-  const closeHandler = () => {
+  const cancelHandler = () => {
     setTitle(value);
     onCancel();
   }
@@ -43,7 +43,7 @@ export default function EditModal(props: EditModalProps) {
               autoCorrect={false}
           />
           <View style={styles.buttons}>
-            <Button onPress={closeHandler} color={Theme.DANGER_COLOR as ColorValue}>Отменить</Button>
+            <Button onPress={cancelHandler} color={Theme.DANGER_COLOR as ColorValue}>Отменить</Button>
             <Button onPress={saveHandler}>Сохранить</Button>
           </View>
         </View>

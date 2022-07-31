@@ -1,6 +1,10 @@
-import { useReducer} from 'react';
+import { useContext, useReducer } from 'react';
+import { Alert } from 'react-native';
 
-import {ADD_TODO, REMOVE_TODO, UPDATE_TODO} from '../../../constants/actions';
+import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from '../../../constants/actions';
+import { Pages } from '../../../types/context';
+
+import { PagesContext } from '../../pages/pagesContext';
 
 import { TodosContext } from '../todosContext';
 import { todosReducer } from '../todosReducer';
@@ -20,11 +24,33 @@ export const initialState = {
 export default function TodosState(props: TodosStateProps) {
   const { children } = props;
 
+  const { changePage } = useContext<Pages>(PagesContext);
+
   const [state, dispatch] = useReducer(todosReducer, initialState);
 
   const addTodo = (title: string) => dispatch({ type: ADD_TODO, title });
 
-  const removeTodo = (id: string) => dispatch({ type: REMOVE_TODO, id });
+  const removeTodo = (id: string) => {
+    const todo = state.todos.find((todo) => todo.id === id);
+    Alert.alert(
+        'Удаление',
+        `Вы уверены что хотите удалить "${todo!.title}"?`,
+        [
+          {
+            text: 'Отмена',
+            style: "cancel",
+          },
+          {
+            text: 'Удалить',
+            style: 'destructive',
+            onPress: () => {
+              changePage(null);
+              dispatch({ type: REMOVE_TODO, id });
+            }
+          }
+        ]
+    );
+  };
 
   const updateTodo = (id: string, title: string) => dispatch({ type: UPDATE_TODO, id, title });
 

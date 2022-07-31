@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import { ColorValue, Dimensions, StyleSheet, View } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
@@ -7,16 +7,20 @@ import Button from '../../components/ui/Button/Button';
 import Card from '../../components/ui/Card/Card';
 import TextRobotoBold from '../../components/ui/RobotoTextBold/TextRobotoBold';
 import { Theme } from '../../constants/theme';
+import { PagesContext } from '../../context/pages/pagesContext';
+import { TodosContext } from '../../context/todos/todosContext';
+import { Pages, Todos } from '../../types/context';
 
-import { TodoPageProps } from './TodoPage.props';
-
-export default function TodoPage(props: TodoPageProps) {
-  const { todo, goBack, onRemove, onSave  } = props;
+export default function TodoPage() {
+  const { todoID, changePage } = useContext<Pages>(PagesContext);
+  const { todos, removeTodo, updateTodo } = useContext<Todos>(TodosContext);
 
   const [modal, setModal] = useState(false);
 
+  const todo = todos.find((todo) => todo.id === todoID);
+
   const saveHandler = (title: string) => {
-    onSave(todo!.id, title);
+    updateTodo(todo!.id, title);
     setModal(false);
   }
 
@@ -38,12 +42,12 @@ export default function TodoPage(props: TodoPageProps) {
 
         <View style={styles.buttons}>
           <View style={styles.button}>
-            <Button onPress={goBack} color={Theme.GREY_COLOR as ColorValue}>
+            <Button onPress={() => changePage(null)} color={Theme.GREY_COLOR as ColorValue}>
               <AntDesign name='back' size={20} />
             </Button>
           </View>
           <View style={styles.button}>
-            <Button onPress={() => onRemove(todo!.id)} color={Theme.DANGER_COLOR as ColorValue}>
+            <Button onPress={() => removeTodo(todo!.id)} color={Theme.DANGER_COLOR as ColorValue}>
               <FontAwesome name='remove' size={20} />
             </Button>
           </View>

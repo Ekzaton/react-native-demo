@@ -2,6 +2,7 @@ import { loadAsync } from 'expo-font';
 import { hideAsync, preventAutoHideAsync } from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
 
+import PagesState from './src/context/pages/PagesState/PagesState';
 import TodosState from './src/context/todos/TodosState/TodosState';
 import MainLayout from './src/layout/MainLayout/MainLayout';
 
@@ -33,8 +34,10 @@ export default function App() {
   if (!appIsReady) return null
 
   return (
-      <TodosState>
-        <MainLayout onLayout={onLayoutRootView} />
-      </TodosState>
+      <PagesState>
+        <TodosState>
+          <MainLayout onLayout={onLayoutRootView} />
+        </TodosState>
+      </PagesState>
   );
 }
