@@ -1,3 +1,5 @@
 import { createContext } from 'react';
 
-export const TodosContext = createContext();
+import { Todos } from '../../types/context';
+
+export const TodosContext = createContext({} as Todos);
