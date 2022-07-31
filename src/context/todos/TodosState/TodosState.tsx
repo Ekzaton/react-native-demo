@@ -1,7 +1,17 @@
 import { useContext, useReducer } from 'react';
 import { Alert } from 'react-native';
 
-import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from '../../../constants/actions';
+import {
+  ADD_TODO,
+  CLEAR_ERROR,
+  HIDE_LOADER,
+  REMOVE_TODO,
+  SHOW_ERROR,
+  SHOW_LOADER,
+  UPDATE_TODO
+} from '../../../constants/actions';
+import { BASE_URL } from '../../../constants/api';
+import { Todo } from '../../../types/common';
 import { Pages } from '../../../types/context';
 
 import { PagesContext } from '../../pages/pagesContext';
@@ -12,13 +22,9 @@ import { todosReducer } from '../todosReducer';
 import { TodosStateProps } from './TodosState.props';
 
 export const initialState = {
-  todos: [
-    { id: '1', title: 'test1' },
-    { id: '2', title: 'test2' },
-    { id: '3', title: 'test3' },
-    { id: '4', title: 'test4' },
-    { id: '5', title: 'test5' }
-  ]
+  todos: [] as Todo[],
+  loading: false,
+  error: null as Error | null
 }
 
 export default function TodosState(props: TodosStateProps) {
@@ -28,7 +34,16 @@ export default function TodosState(props: TodosStateProps) {
 
   const [state, dispatch] = useReducer(todosReducer, initialState);
 
-  const addTodo = (title: string) => dispatch({ type: ADD_TODO, title });
+  const addTodo = async (title: string) => {
+    const response = await fetch(`${BASE_URL}/todos.json`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title })
+    })
+    const data = await response.json();
+    console.log(data);
+    dispatch({ type: ADD_TODO, id: data.name, title });
+  };
 
   const removeTodo = (id: string) => {
     const todo = state.todos.find((todo) => todo.id === id);
@@ -53,6 +68,14 @@ export default function TodosState(props: TodosStateProps) {
   };
 
   const updateTodo = (id: string, title: string) => dispatch({ type: UPDATE_TODO, id, title });
+
+  const showLoader = () => dispatch({ type: SHOW_LOADER });
+
+  const hideLoader = () => dispatch({ type: HIDE_LOADER })
+
+  const showError = (error: string) => dispatch({ type: SHOW_ERROR, error })
+
+  const clearError = () => dispatch({ type: CLEAR_ERROR })
 
   const value = {
     todos: state.todos,
