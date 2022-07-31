@@ -71,14 +71,21 @@ export default function TodosState(props: TodosStateProps) {
 
   const fetchTodos = async () => {
     showLoader();
-    const response = await fetch(`${BASE_URL}/todos.json`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-    const data = await response.json();
-    const todos = Object.keys(data).map((key) => ({ ...data[key], id: key }))
-    dispatch({ type: FETCH_TODOS, todos });
-    hideLoader();
+    clearError();
+    try {
+      const response = await fetch(`${BASE_URL}/todos.json`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json();
+      const todos = Object.keys(data).map((key) => ({ ...data[key], id: key }))
+      dispatch({ type: FETCH_TODOS, todos });
+    } catch (e) {
+      showError('Что-то пошло не так...');
+      console.log(e);
+    } finally {
+      hideLoader();
+    }
   }
 
   const showLoader = () => dispatch({ type: SHOW_LOADER });

@@ -1,4 +1,4 @@
-import {ActivityIndicator, ColorValue, StyleSheet, View} from 'react-native';
+import { ActivityIndicator, ColorValue, StyleSheet, View } from 'react-native';
 
 import { Theme } from '../../../constants/theme';
 
