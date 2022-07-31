@@ -67,7 +67,20 @@ export default function TodosState(props: TodosStateProps) {
     );
   };
 
-  const updateTodo = (id: string, title: string) => dispatch({ type: UPDATE_TODO, id, title });
+  const updateTodo = async (id: string, title: string) => {
+    clearError();
+    try {
+      await fetch(`${BASE_URL}/todos/${id}.json`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title })
+      })
+      dispatch({ type: UPDATE_TODO, id, title });
+    } catch (e) {
+      showError('Что-то пошло не так...');
+      console.log(e);
+    }
+  };
 
   const fetchTodos = async () => {
     showLoader();
