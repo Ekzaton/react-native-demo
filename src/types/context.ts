@@ -6,3 +6,8 @@ export type Todos = {
   removeTodo: (id: string) => void;
   updateTodo: (id: string, title: string) => void;
 }
+
+export type Pages = {
+  todoID: string | null;
+  changePage: (id: string) => void;
+}
