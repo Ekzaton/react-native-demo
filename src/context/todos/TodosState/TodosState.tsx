@@ -12,6 +12,7 @@ import {
   UPDATE_TODO
 } from '../../../constants/actions';
 import { BASE_URL } from '../../../constants/api';
+import API from '../../../helpers/API';
 import { Todo } from '../../../types/common';
 import { Pages } from '../../../types/context';
 
@@ -36,13 +37,13 @@ export default function TodosState(props: TodosStateProps) {
   const [state, dispatch] = useReducer(todosReducer, initialState);
 
   const addTodo = async (title: string) => {
-    const response = await fetch(`${BASE_URL}/todos.json`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title })
-    })
-    const data = await response.json();
-    dispatch({ type: ADD_TODO, id: data.name, title });
+    clearError();
+    try {
+      const data = await API.post(`${BASE_URL}/todos.json`, { title });
+      dispatch({ type: ADD_TODO, id: data.name, title });
+    } catch (e) {
+      showError('Что-то пошло не так...');
+    }
   };
 
   const removeTodo = (id: string) => {
@@ -60,11 +61,13 @@ export default function TodosState(props: TodosStateProps) {
             style: 'destructive',
             onPress: async () => {
               changePage(null);
-              await fetch(`${BASE_URL}/todos/${id}.json`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-              })
-              dispatch({ type: REMOVE_TODO, id });
+              clearError();
+              try {
+                await API.delete(`${BASE_URL}/todos/${id}.json`);
+                dispatch({ type: REMOVE_TODO, id });
+              } catch (e) {
+                showError('Что-то пошло не так...');
+              }
             }
           }
         ]
@@ -74,15 +77,10 @@ export default function TodosState(props: TodosStateProps) {
   const updateTodo = async (id: string, title: string) => {
     clearError();
     try {
-      await fetch(`${BASE_URL}/todos/${id}.json`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title })
-      })
+      await API.patch(`${BASE_URL}/todos/${id}.json`, { title });
       dispatch({ type: UPDATE_TODO, id, title });
     } catch (e) {
       showError('Что-то пошло не так...');
-      console.log(e);
     }
   };
 
@@ -90,16 +88,11 @@ export default function TodosState(props: TodosStateProps) {
     showLoader();
     clearError();
     try {
-      const response = await fetch(`${BASE_URL}/todos.json`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-      const data = await response.json();
+      const data = await API.get(`${BASE_URL}/todos.json`);
       const todos = Object.keys(data).map((key) => ({ ...data[key], id: key }))
       dispatch({ type: FETCH_TODOS, todos });
     } catch (e) {
       showError('Что-то пошло не так...');
-      console.log(e);
     } finally {
       hideLoader();
     }
