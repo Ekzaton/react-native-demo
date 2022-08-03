@@ -1,42 +1,17 @@
-import { loadAsync } from 'expo-font';
-import { hideAsync, preventAutoHideAsync } from 'expo-splash-screen';
-import { useCallback, useEffect, useState } from 'react';
-
 import PagesState from './src/context/pages/PagesState/PagesState';
 import TodosState from './src/context/todos/TodosState/TodosState';
+import useAssetsLoading from './src/hooks/useAssetsLoading';
 import MainLayout from './src/layout/MainLayout/MainLayout';
 
 export default function App() {
-  const [appIsReady, setAppIsReady] = useState(false);
+  const isLoadingComplete = useAssetsLoading();
 
-  useEffect(() => {
-    async function prepare() {
-      try {
-        await preventAutoHideAsync();
-        await loadAsync({
-          'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
-          'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf')
-        })
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setAppIsReady(true);
-      }
-    }
-
-    prepare();
-  }, []);
-
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) await hideAsync();
-  }, [appIsReady])
-
-  if (!appIsReady) return null
+  if (!isLoadingComplete) return null
 
   return (
       <PagesState>
         <TodosState>
-          <MainLayout onLayout={onLayoutRootView} />
+          <MainLayout />
         </TodosState>
       </PagesState>
   );

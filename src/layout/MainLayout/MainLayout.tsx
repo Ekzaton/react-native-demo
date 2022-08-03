@@ -8,15 +8,11 @@ import MainPage from '../../pages/MainPage/MainPage';
 import TodoPage from '../../pages/TodoPage/TodoPage';
 import { Pages } from '../../types/context';
 
-import { MainLayoutProps } from './MainLayout.props';
-
-export default function MainLayout(props: MainLayoutProps) {
-  const { onLayout } = props;
-
+export default function MainLayout() {
   const { todoID } = useContext<Pages>(PagesContext);
 
   return (
-      <View style={styles.wrapper} onLayout={onLayout}>
+      <View style={styles.wrapper}>
         <Navbar title='Todo App' />
         <View style={styles.container}>
           {todoID ? <TodoPage /> : <MainPage />}
